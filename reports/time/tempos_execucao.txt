@@ -1,0 +1,16 @@
+Sequencial, dados_xtest_10.txt, 0.000069
+Paralelo, dados_xtest_10.txt, 0.000771
+Sequencial, dados_xtest_30.txt, 0.000269
+Paralelo, dados_xtest_30.txt, 0.000086
+Sequencial, dados_xtest_50.txt, 0.000435
+Paralelo, dados_xtest_50.txt, 0.000132
+Sequencial, dados_xtest_100.txt, 0.000883
+Paralelo, dados_xtest_100.txt, 0.000199
+Sequencial, dados_xtest_1000.txt, 0.008204
+Paralelo, dados_xtest_1000.txt, 0.001184
+Sequencial, dados_xtest_100000.txt, 0.212959
+Paralelo, dados_xtest_100000.txt, 0.074658
+Sequencial, dados_xtest_1000000.txt, 2.068273
+Paralelo, dados_xtest_1000000.txt, 0.554667
+Sequencial, dados_xtest_10000000.txt, 20.413212
+Paralelo, dados_xtest_10000000.txt, 5.474833
