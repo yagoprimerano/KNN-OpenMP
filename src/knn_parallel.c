@@ -133,6 +133,12 @@ void salvar_tempo(const char *nome_arquivo, const char *metodo, const char *data
 }
 
 int main() {
+
+    int max_threads = omp_get_max_threads();
+    omp_set_num_threads(max_threads);
+
+    printf("Número máximo de threads disponíveis e configuradas: %d\n", max_threads);
+
     const char *arquivos_teste[] = {
         "../data/dados_xtest_10.txt", "../data/dados_xtest_30.txt", "../data/dados_xtest_50.txt",
         "../data/dados_xtest_100.txt", "../data/dados_xtest_1000.txt", "../data/dados_xtest_100000.txt",
