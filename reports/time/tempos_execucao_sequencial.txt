@@ -1,0 +1,8 @@
+Sequencial, dados_xtest_10.txt, 0.000070
+Sequencial, dados_xtest_30.txt, 0.000208
+Sequencial, dados_xtest_50.txt, 0.000418
+Sequencial, dados_xtest_100.txt, 0.000743
+Sequencial, dados_xtest_1000.txt, 0.006092
+Sequencial, dados_xtest_100000.txt, 0.202733
+Sequencial, dados_xtest_1000000.txt, 2.018597
+Sequencial, dados_xtest_10000000.txt, 20.260159

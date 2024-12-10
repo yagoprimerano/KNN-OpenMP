@@ -1,0 +1,8 @@
+Paralelo, dados_xtest_10.txt, 0.000275
+Paralelo, dados_xtest_30.txt, 0.000023
+Paralelo, dados_xtest_50.txt, 0.000037
+Paralelo, dados_xtest_100.txt, 0.000058
+Paralelo, dados_xtest_1000.txt, 0.000564
+Paralelo, dados_xtest_100000.txt, 0.056930
+Paralelo, dados_xtest_1000000.txt, 0.537194
+Paralelo, dados_xtest_10000000.txt, 5.408960
