@@ -37,7 +37,7 @@ gcc create_datasets.c -o create_datasets
 ./create_datasets
 ```
 
-# 2. Executar o KNN Sequencial
+### 2. Executar o KNN Sequencial
 
 4. **Compile o arquivo knn_sequencial.c**:
 
@@ -49,10 +49,9 @@ gcc knn_sequencial.c -o knn_sequencial -lm
 
 ```
 ./knn_sequencial
-
 ```
 
-# 3. Executar o KNN Paralelo
+### 3. Executar o KNN Paralelo
 
 
 6. **Compile o arquivo knn_paralelo.c**:
@@ -67,7 +66,7 @@ gcc knn_paralelo.c -o knn_paralelo -fopenmp -lm
 ./knn_paralelo
 ```
 
-# 4. Gerar Gráficos de Comparação
+### 4. Gerar Gráficos de Comparação
 
 Certifique-se de que os arquivos tempos_execucao_sequencial.txt e tempos_execucao_paralelo.txt foram gerados nos diretórios esperados após a execução dos programas.
 
