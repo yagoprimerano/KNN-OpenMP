@@ -51,6 +51,32 @@ void moving_window(const float *data, int data_len, int w, int h, float **X, int
     }
 }
 
+// Função para carregar dados de um arquivo texto
+// Entrada: nome do arquivo, ponteiro para armazenar os dados e ponteiro para o tamanho
+// Modifica: aloca memória e preenche o vetor de dados com os valores do arquivo
+void carregar_arquivo(const char *nome_arquivo, float **dados, int *tamanho) {
+    FILE *arquivo = fopen(nome_arquivo, "r"); // Abre o arquivo em modo leitura
+    if (!arquivo) { // Verifica se o arquivo foi aberto com sucesso
+        printf("Erro ao abrir o arquivo %s\n", nome_arquivo);
+        exit(EXIT_FAILURE);
+    }
+
+    int capacidade = 1024; // Capacidade inicial do vetor de dados
+    *dados = (float *)malloc(capacidade * sizeof(float)); // Aloca memória para o vetor de dados
+    *tamanho = 0; // Inicializa o tamanho como zero
+
+    // Lê os valores do arquivo e armazena no vetor de dados
+    while (fscanf(arquivo, "%f", &(*dados)[*tamanho]) == 1) {
+        (*tamanho)++;
+        if (*tamanho >= capacidade) { // Realoca memória se a capacidade for excedida
+            capacidade *= 2;
+            *dados = (float *)realloc(*dados, capacidade * sizeof(float));
+        }
+    }
+
+    fclose(arquivo); // Fecha o arquivo
+}
+
 /**
  * Função para salvar os valores de uma matriz em um arquivo, um valor por linha.
  *
