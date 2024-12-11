@@ -34,8 +34,10 @@ gcc create_datasets.c -o create_datasets
 3. **Execute o programa para criar os datasets**:
 
 ```
-./create_datasets
+./create_datasets -w 5 -h 1
 ```
+
+A partir do comando acima, foi definido w=5 e h=1, mas você pode escolher outros valores para esses parâmetros.
 
 ### 2. Executar o KNN Sequencial
 
@@ -48,8 +50,9 @@ gcc knn_sequencial.c -o knn_sequencial -lm
 5. **Execute o programa sequencial:**:
 
 ```
-./knn_sequencial
+./knn_sequencial -w 5 -k 3
 ```
+A partir do comando acima, foi definido w=5 e k=3, mas você pode escolher outros valores para esses parâmetros.
 
 ### 3. Executar o KNN Paralelo
 
@@ -63,8 +66,11 @@ gcc knn_paralelo.c -o knn_paralelo -fopenmp -lm
 
 7. **Execute o programa paralelo:**:
 ```
-./knn_paralelo
+./knn_paralelo -w 5 -k 3
 ```
+
+A partir do comando acima, foi definido w=5 e k=3, mas você pode escolher outros valores para esses parâmetros.
+
 
 ### 4. Gerar Gráficos de Comparação
 
