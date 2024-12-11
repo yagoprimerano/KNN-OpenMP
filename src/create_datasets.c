@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h> 
+#include <bits/getopt_core.h>
 
 /**
  * Função para criar janelas deslizantes (moving window) a partir de uma série temporal.
@@ -75,11 +77,63 @@ void save_to_file(const char *filename, const float *data, int rows, int cols) {
     fclose(file);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     // Caminhos para os arquivos de entrada e saída.
     const char *input_file = "../data/dados_xtrain.txt"; // Arquivo de entrada com a série temporal.
     const char *x_output_file = "../data/xtrain.txt";    // Arquivo para salvar a matriz X.
     const char *y_output_file = "../data/ytrain.txt";    // Arquivo para salvar a matriz Y.
+
+    // Parâmetros necessários para execução do código
+    int w = -1, h = -1; // Inicialmente inválidos
+
+    // Leitura dos parâmetros pela CLI
+    int opt;
+    while ((opt = getopt(argc, argv, "w:h:")) != -1) {
+        switch (opt) {
+        case 'w':
+            w = atoi(optarg);
+            break;
+        case 'h':
+            h = atoi(optarg);
+            break;
+        default:
+            fprintf(stderr, "Uso: %s -w <tamanho janela> -h <tamanho previsão>\n", argv[0]);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // ----------------------------------- Verificação de se os parâmetros são válidos ---------------
+    if (w <= 0 || h <= 0) {
+        fprintf(stderr, "Parâmetros w e h devem ser fornecidos e maiores que 0.\n");
+        fprintf(stderr, "Uso: %s -w <tamanho janela> -h <tamanho previsão>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    // Listagem dos arquivos de teste a serem processados
+    const char *arquivos_teste[] = {
+        "../data/dados_xtest_10.txt", "../data/dados_xtest_30.txt", "../data/dados_xtest_50.txt",
+        "../data/dados_xtest_100.txt", "../data/dados_xtest_1000.txt", "../data/dados_xtest_100000.txt",
+        "../data/dados_xtest_1000000.txt", "../data/dados_xtest_10000000.txt"
+    };
+    const int num_testes = sizeof(arquivos_teste) / sizeof(arquivos_teste[0]); // Número de arquivos de teste
+    const char *arquivo_treino_x = "../data/xtrain.txt"; // Arquivo com os dados de treino (entrada)
+    const char *arquivo_treino_y = "../data/ytrain.txt"; // Arquivo com os rótulos de treino
+    const char *arquivo_saida = "../reports/time/tempos_execucao_paralelo.txt"; // Arquivo de saída para tempos
+
+    float *xtest; // Ponteiros para armazenar os dados
+    int tamanho_xtest;
+
+    // Processa todos os arquivos de teste e verifica se w é válido
+    for (int i = 0; i < num_testes; i++) {
+        carregar_arquivo(arquivos_teste[i], &xtest, &tamanho_xtest);
+        if (tamanho_xtest % w != 0) {
+            printf("Erro: Tamanho do arquivo %s não é divisível por w. Escolha um valor de w que seja divisível pelo tamanho dos arquivos de teste\n", arquivos_teste[i]);
+            free(xtest);
+            continue;
+        }
+    }
+
+    // ----------------------------------- Fim da verificação de se os parâmetros são válidos ---------------
 
     // Abre o arquivo de entrada para leitura.
     FILE *file = fopen(input_file, "r");
@@ -106,8 +160,8 @@ int main() {
     fclose(file); // Fecha o arquivo de entrada.
 
     // Define os parâmetros w (tamanho da janela) e h (tamanho da previsão).
-    int w = 5; // Tamanho da janela: considera os últimos 5 valores como entrada.
-    int h = 1; // Previsão: considera apenas o próximo valor como saída.
+    //int w = 5; // Tamanho da janela: considera os últimos 5 valores como entrada.
+    //int h = 1; // Previsão: considera apenas o próximo valor como saída.
 
     // Declara os ponteiros para as matrizes X e Y e os contadores de linhas.
     float *X = NULL, *Y = NULL;

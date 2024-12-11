@@ -3,6 +3,8 @@
 #include <math.h>
 #include <omp.h>   // Biblioteca necessária para implementar o paralelismo
 #include <string.h>
+#include <unistd.h>
+#include <bits/getopt_core.h>
 
 // Função para calcular a distância euclidiana entre dois vetores
 // Entrada: dois vetores (xtrain e xtest), tamanho da janela (w) e suas posições
@@ -112,11 +114,7 @@ void salvar_tempo(const char *nome_arquivo, const char *metodo, const char *data
     fclose(saida); // Fecha o arquivo
 }
 
-int main() {
-    int max_threads = omp_get_max_threads(); // Obtém o número máximo de threads disponíveis
-    omp_set_num_threads(max_threads);       // Configura o número de threads para o máximo disponível
-
-    printf("Número máximo de threads disponíveis e configuradas: %d\n", max_threads);
+int main(int argc, char *argv[]) {
 
     // Listagem dos arquivos de teste a serem processados
     const char *arquivos_teste[] = {
@@ -128,8 +126,37 @@ int main() {
     const char *arquivo_treino_x = "../data/xtrain.txt"; // Arquivo com os dados de treino (entrada)
     const char *arquivo_treino_y = "../data/ytrain.txt"; // Arquivo com os rótulos de treino
     const char *arquivo_saida = "../reports/time/tempos_execucao_paralelo.txt"; // Arquivo de saída para tempos
-    int w = 5;  // Tamanho da janela (subvetor)
-    int k = 3;  // Número de vizinhos mais próximos
+    
+    int w = -1, k = -1;
+
+    int opt;
+    while ((opt = getopt(argc, argv, "w:k:")) != -1) {
+        switch (opt) {
+        case 'w':
+            w = atoi(optarg);
+            break;
+        case 'k':
+            k = atoi(optarg);
+            break;
+        default:
+            fprintf(stderr, "Uso: %s -w <tamanho janela> -k <numero de vizinhos>\n", argv[0]);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    if (w <= 0 || k <= 0) {
+        fprintf(stderr, "Parâmetros w e k devem ser fornecidos e maiores que 0.\n");
+        fprintf(stderr, "Uso: %s -w <tamanho janela> -k <numero de vizinhos>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    
+    //int w = 5;  // Tamanho da janela (subvetor)
+    //int k = 3;  // Número de vizinhos mais próximos
+
+    int max_threads = omp_get_max_threads(); // Obtém o número máximo de threads disponíveis
+    omp_set_num_threads(max_threads);       // Configura o número de threads para o máximo disponível
+
+    printf("Número máximo de threads disponíveis e configuradas: %d\n", max_threads);
 
     FILE *saida = fopen(arquivo_saida, "w"); // Abre o arquivo de saída para limpar o conteúdo existente
     if (!saida) {
@@ -156,7 +183,7 @@ int main() {
     for (int i = 0; i < num_testes; i++) {
         carregar_arquivo(arquivos_teste[i], &xtest, &tamanho_xtest);
         if (tamanho_xtest % w != 0) {
-            printf("Erro: Tamanho do arquivo %s não é divisível por w.\n", arquivos_teste[i]);
+            printf("Erro: Tamanho do arquivo %s não é divisível por w. Escolha um valor de w que seja divisível pelo tamanho dos arquivos de teste\n", arquivos_teste[i]);
             free(xtest);
             continue;
         }
