@@ -150,8 +150,6 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     
-    //int w = 5;  // Tamanho da janela (subvetor)
-    //int k = 3;  // Número de vizinhos mais próximos
 
     int max_threads = omp_get_max_threads(); // Obtém o número máximo de threads disponíveis
     omp_set_num_threads(max_threads);       // Configura o número de threads para o máximo disponível

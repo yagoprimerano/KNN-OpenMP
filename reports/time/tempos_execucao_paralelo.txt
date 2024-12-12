@@ -6,4 +6,3 @@ Paralelo, dados_xtest_1000.txt, 0.000564
 Paralelo, dados_xtest_100000.txt, 0.056930
 Paralelo, dados_xtest_1000000.txt, 0.537194
 Paralelo, dados_xtest_10000000.txt, 5.408960
-Paralelo, dados_xtest_10000000.txt, 11.842500

@@ -147,8 +147,6 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    //int w = 5;  // Tamanho da janela (subvetor)
-    //int k = 3;  // Número de vizinhos mais próximos
 
     FILE *saida = fopen(arquivo_saida, "w"); // Abre o arquivo de saída para limpar o conteúdo existente
     if (!saida) {
