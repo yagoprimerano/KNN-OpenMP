@@ -19,6 +19,8 @@ Certifique-se de ter os seguintes itens instalados no seu ambiente:
 
 ### 1. Criar os Datasets
 
+**Importante**: Ao definir os valores dos parâmetros w, h e k para os experimentos, certifique-se de utilizá-los de forma consistente em todos os comandos de execução. Por exemplo, se optar por w=5, garanta que todos os comandos da CLI usem w=5. A inconsistência nos valores levará a resultados imprecisos.
+
 1. Navegue até o diretório `src`:
 
 ```

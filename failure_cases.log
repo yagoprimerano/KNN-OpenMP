@@ -1,0 +1,11 @@
+[FALHA]: Testando com w=25, h=5, k=1 - knn_paralelo
+[FALHA]: Testando com w=25, h=5, k=5 - knn_paralelo
+[FALHA]: Testando com w=25, h=5, k=-1 - knn_sequencial
+[FALHA]: Testando com w=25, h=5, k=-1 - knn_paralelo
+[FALHA]: Testando com w=25, h=5, k=0 - knn_sequencial
+[FALHA]: Testando com w=25, h=5, k=0 - knn_paralelo
+[FALHA]: Testando com w=25, h=10, k=-1 - knn_sequencial
+[FALHA]: Testando com w=25, h=10, k=-1 - knn_paralelo
+[FALHA]: Testando com w=25, h=10, k=0 - knn_sequencial
+[FALHA]: Testando com w=25, h=10, k=0 - knn_paralelo
+[FALHA]: Testando com w=25, h=-1, k=1 - create_datasets

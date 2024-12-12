@@ -17,10 +17,9 @@
  * - y_rows: Ponteiro para armazenar o número de linhas da matriz Y.
  */
 void moving_window(const float *data, int data_len, int w, int h, float **X, int *x_rows, float **Y, int *y_rows) {
-    // Calcula o número total de janelas que podem ser criadas com os parâmetros w e h.
+    // Calcula o número total de janelas
     int total_windows = data_len - w - h + 1;
 
-    // Caso não seja possível criar janelas, retorna sem alocar memória.
     if (total_windows <= 0) {
         *X = NULL;
         *Y = NULL;
@@ -29,27 +28,26 @@ void moving_window(const float *data, int data_len, int w, int h, float **X, int
         return;
     }
 
-    // Aloca memória para a matriz X (janelas de entrada) e matriz Y (valores previstos).
-    *X = (float *)malloc(total_windows * w * sizeof(float)); // Cada janela tem w valores.
-    *Y = (float *)malloc(total_windows * h * sizeof(float)); // Cada previsão tem h valores.
+    // Aloca memória para X e Y
+    *X = (float *)malloc(total_windows * w * sizeof(float));
+    // Agora Y terá apenas uma coluna, pois estamos pegando somente o valor h dias no futuro
+    *Y = (float *)malloc(total_windows * sizeof(float));
 
-    // Atualiza o número de linhas geradas em X e Y.
-    *x_rows = total_windows; // Número de janelas criadas.
-    *y_rows = total_windows; // Cada janela de entrada tem uma saída associada.
+    *x_rows = total_windows;
+    *y_rows = total_windows; // Cada janela de entrada tem apenas um valor futuro associado
 
-    // Preenche as matrizes X e Y com as janelas deslizantes.
     for (int i = 0; i < total_windows; i++) {
-        // Preenche a linha i de X com w valores consecutivos da série temporal.
+        // Preenche X (janelas passadas)
         for (int j = 0; j < w; j++) {
             (*X)[i * w + j] = data[i + j];
         }
 
-        // Preenche a linha i de Y com h valores consecutivos após a janela X.
-        for (int k = 0; k < h; k++) {
-            (*Y)[i * h + k] = data[i + w + k];
-        }
+        // Preenche Y com o valor no futuro definido por h
+        // Em vez de colocar h valores, coloca apenas data[i + w + h - 1]
+        (*Y)[i] = data[i + w + h - 1];
     }
 }
+
 
 // Função para carregar dados de um arquivo texto
 // Entrada: nome do arquivo, ponteiro para armazenar os dados e ponteiro para o tamanho
@@ -198,7 +196,7 @@ int main(int argc, char *argv[]) {
 
     // Salva as matrizes X e Y nos arquivos de saída.
     save_to_file(x_output_file, X, x_rows, w); // Salva X (janelas de entrada).
-    save_to_file(y_output_file, Y, y_rows, h); // Salva Y (valores previstos).
+    save_to_file(y_output_file, Y, y_rows, 1); // Salva Y (valores previstos).
 
     // Libera a memória alocada.
     free(data);

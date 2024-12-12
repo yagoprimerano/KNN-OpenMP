@@ -164,8 +164,13 @@ int main(int argc, char *argv[]) {
     carregar_arquivo(arquivo_treino_x, &xtrain, &tamanho_xtrain);
     carregar_arquivo(arquivo_treino_y, &ytrain, &tamanho_ytrain);
 
-    if (tamanho_xtrain % w != 0 || tamanho_ytrain != tamanho_xtrain / w) {
-        printf("Erro: Tamanhos incompatíveis nos arquivos de treinamento.\n");
+    if (tamanho_xtrain % w != 0) {
+        printf("Erro: Tamanho do arquivo %s não é divisível por w. Escolha um valor de w que seja divisível pelo tamanho de xtrain\n", arquivo_treino_x);
+        exit(EXIT_FAILURE);
+    }
+
+    if (tamanho_ytrain != tamanho_xtrain / w) {
+        printf("Erro: Quantidade de rótulos imcompatível com pontos de xtrain.\n");
         exit(EXIT_FAILURE);
     }
 

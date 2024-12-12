@@ -172,10 +172,10 @@ int main(int argc, char *argv[]) {
     carregar_arquivo(arquivo_treino_x, &xtrain, &tamanho_xtrain);
     carregar_arquivo(arquivo_treino_y, &ytrain, &tamanho_ytrain);
 
-    if (tamanho_xtrain % w != 0 || tamanho_ytrain != tamanho_xtrain / w) {
-        printf("Erro: Tamanhos incompatíveis nos arquivos de treinamento.\n");
-        exit(EXIT_FAILURE);
-    }
+   //if (tamanho_xtrain % w != 0 || tamanho_ytrain != tamanho_xtrain / w) {
+    //    printf("Erro: Tamanhos incompatíveis nos arquivos de treinamento.\n");
+     //   exit(EXIT_FAILURE);
+    //}
 
     int qnt_treino = tamanho_xtrain / w; // Calcula o número de exemplos no conjunto de treino
 
