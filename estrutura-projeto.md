@@ -1,5 +1,5 @@
 .
-├── data # dados fornecidos no edisciplinas
+├── data # dados disponibilizados pelo professor e gerados (xtrain e ytrain)
 │   ├── dados_xtest_10000000.txt
 │   ├── dados_xtest_1000000.txt
 │   ├── dados_xtest_100000.txt
