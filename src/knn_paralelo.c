@@ -200,6 +200,23 @@ int main(int argc, char *argv[]) {
         // Salva o tempo de execução no arquivo de saída
         salvar_tempo(arquivo_saida, "Paralelo", arquivos_teste[i], tempo);
 
+        // Salvar as predições em um arquivo txt
+        char nome_arquivo_predicao[256];
+        snprintf(nome_arquivo_predicao, sizeof(nome_arquivo_predicao), 
+                 "../reports/predictions/paralelo/pred_%d_w%d_k%d.txt", 
+                 tamanho_xtest, w, k);
+
+        FILE *arquivo_predicao = fopen(nome_arquivo_predicao, "w");
+        if (!arquivo_predicao) {
+            printf("Erro ao abrir o arquivo de predições %s\n", nome_arquivo_predicao);
+            exit(EXIT_FAILURE);
+        }
+
+        for (int j = 0; j < qnt_teste; j++) {
+            fprintf(arquivo_predicao, "%f\n", predicoes[j]); // Escreve cada predição em uma nova linha
+        }
+        fclose(arquivo_predicao); // Fecha o arquivo de predições
+
         // Libera a memória alocada para os dados de teste e predições
         free(xtest);
         free(predicoes);
